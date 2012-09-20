@@ -16,6 +16,8 @@ import net.minecraft.src.*;
 
 import java.util.Random;
 
+import SmeltCraft.Library.GuiIds;
+
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class Blockcool extends BlockContainer implements IGuiHandler {
@@ -131,17 +133,19 @@ public class Blockcool extends BlockContainer implements IGuiHandler {
 		}
 	}
 
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z,
-			EntityPlayer player, int idk, float what, float these, float are) {
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if (tileEntity == null || player.isSneaking()) {
-			return false;
-		}
-		// opens GUI
-		player.openGui(SmeltCraft.instance, SmeltCraft.coolID, world, x, y, z);
-		return true;
-	}
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+
+	    if (world.isRemote) {
+            TileEntitycool tileCalcinator = (TileEntitycool) world.getBlockTileEntity(x, y, z);
+    
+            if (tileCalcinator != null) {
+                player.openGui(SmeltCraft.instance, GuiIds.COOLER, world, x, y, z);
+            }
+	    }
+
+        return true;
+
+    }
 
 	public static void updatecoolBlockState(boolean flag, World world, int i,
 			int j, int k) {

@@ -235,7 +235,7 @@ public class SmeltCraft {
 		 * 126); ModLoaderMp.RegisterGUI(this, 127);
 		 */
 
-		NetworkRegistry.instance().registerGuiHandler(this, coolGui);
+		NetworkRegistry.instance().registerGuiHandler(this, proxy);
 		// Blocks
 
 		ModLoader.addName(bfurBlock, "Blast Furnace");
