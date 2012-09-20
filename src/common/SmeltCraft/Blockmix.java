@@ -16,6 +16,8 @@ import net.minecraft.src.*;
 
 import java.util.Random;
 
+import SmeltCraft.Load.blocks;
+
 public class Blockmix extends BlockContainer {
 
 	public Blockmix(int i, boolean flag) {
@@ -26,7 +28,7 @@ public class Blockmix extends BlockContainer {
 	}
 
 	public int idDropped(int i, Random random) {
-		return SmeltCraft.mixBlock.blockID;
+		return blocks.mixBlock.blockID;
 	}
 
 	public void onBlockAdded(World world, int i, int j, int k) {
@@ -124,9 +126,9 @@ public class Blockmix extends BlockContainer {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 		keepmixInventory = true;
 		if (flag) {
-			world.setBlockWithNotify(i, j, k, SmeltCraft.mixBlockOn.blockID);
+			world.setBlockWithNotify(i, j, k, blocks.mixBlockOn.blockID);
 		} else {
-			world.setBlockWithNotify(i, j, k, SmeltCraft.mixBlock.blockID);
+			world.setBlockWithNotify(i, j, k, blocks.mixBlock.blockID);
 		}
 		keepmixInventory = false;
 		world.setBlockMetadataWithNotify(i, j, k, l);

@@ -5,6 +5,8 @@ import net.minecraft.src.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import SmeltCraft.Load.items;
+
 // Referenced classes of package net.minecraft.src:
 //            Block, ItemStack, Item
 
@@ -17,27 +19,27 @@ public class coolRecipes {
 	private coolRecipes() {
 		smeltingList = new HashMap();
 		addFrost(Item.bucketWater.shiftedIndex, new ItemStack(Block.ice));
-		addFrost(SmeltCraft.mmgoldAnditite.shiftedIndex, new ItemStack(
-				SmeltCraft.goldAnditite));
-		addFrost(SmeltCraft.mmgoldiron.shiftedIndex, new ItemStack(
-				SmeltCraft.ironGold));
-		addFrost(SmeltCraft.mmironAnditite.shiftedIndex, new ItemStack(
-				SmeltCraft.ironAnditite));
-		addFrost(SmeltCraft.moltAnd.shiftedIndex, new ItemStack(
-				SmeltCraft.andIngot));
-		addFrost(SmeltCraft.moltGold.shiftedIndex,
+		addFrost(items.mmgoldAnditite.shiftedIndex, new ItemStack(
+				items.goldAnditite));
+		addFrost(items.mmgoldiron.shiftedIndex, new ItemStack(
+				items.ironGold));
+		addFrost(items.mmironAnditite.shiftedIndex, new ItemStack(
+				items.ironAnditite));
+		addFrost(items.moltAnd.shiftedIndex, new ItemStack(
+				items.andIngot));
+		addFrost(items.moltGold.shiftedIndex,
 				new ItemStack(Item.ingotGold));
-		addFrost(SmeltCraft.moltIron.shiftedIndex,
+		addFrost(items.moltIron.shiftedIndex,
 				new ItemStack(Item.ingotIron));
-		addFrost(SmeltCraft.moltSteel.shiftedIndex, new ItemStack(
-				SmeltCraft.ingotSteel));
-		addFrost(SmeltCraft.moltStone.shiftedIndex, new ItemStack(Block.stone));
-		addFrost(SmeltCraft.hmIron.shiftedIndex, new ItemStack(Item.ingotIron,
+		addFrost(items.moltSteel.shiftedIndex, new ItemStack(
+				items.ingotSteel));
+		addFrost(items.moltStone.shiftedIndex, new ItemStack(Block.stone));
+		addFrost(items.hmIron.shiftedIndex, new ItemStack(Item.ingotIron,
 				2));
-		addFrost(SmeltCraft.rhIron.shiftedIndex, new ItemStack(Item.ingotIron,
+		addFrost(items.rhIron.shiftedIndex, new ItemStack(Item.ingotIron,
 				4));
-		addFrost(SmeltCraft.mmixer.shiftedIndex,
-				new ItemStack(SmeltCraft.mixer));
+		addFrost(items.mmixer.shiftedIndex,
+				new ItemStack(items.mixer));
 
 	}
 

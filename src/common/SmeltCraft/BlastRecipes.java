@@ -5,6 +5,8 @@ import net.minecraft.src.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import SmeltCraft.Load.items;
+
 // Referenced classes of package net.minecraft.src:
 //            Block, ItemStack, Item
 
@@ -16,15 +18,15 @@ public class BlastRecipes {
 
 	private BlastRecipes() {
 		smeltingList = new HashMap();
-		addRoast(SmeltCraft.andIngot.shiftedIndex, new ItemStack(
-				SmeltCraft.moltAnd));
+		addRoast(items.andIngot.shiftedIndex, new ItemStack(
+				items.moltAnd));
 		addRoast(Item.ingotIron.shiftedIndex,
-				new ItemStack(SmeltCraft.moltIron));
+				new ItemStack(items.moltIron));
 		addRoast(Item.ingotGold.shiftedIndex,
-				new ItemStack(SmeltCraft.moltGold));
-		addRoast(SmeltCraft.ingotSteel.shiftedIndex, new ItemStack(
-				SmeltCraft.moltSteel));
-		addRoast(Block.stone.blockID, new ItemStack(SmeltCraft.moltStone));
+				new ItemStack(items.moltGold));
+		addRoast(items.ingotSteel.shiftedIndex, new ItemStack(
+				items.moltSteel));
+		addRoast(Block.stone.blockID, new ItemStack(items.moltStone));
 
 	}
 

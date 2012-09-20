@@ -17,6 +17,7 @@ import net.minecraft.src.*;
 import java.util.Random;
 
 import SmeltCraft.Library.GuiIds;
+import SmeltCraft.Load.blocks;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -31,7 +32,7 @@ public class Blockcool extends BlockContainer{
 	}
 
 	public int idDropped(int i, Random random) {
-		return SmeltCraft.coolBlock.blockID;
+		return blocks.coolBlock.blockID;
 	}
 
 	// returns an instance of the Container you made earlier
@@ -135,21 +136,23 @@ public class Blockcool extends BlockContainer{
 		}
 	}
 
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+
        
-		TileEntitycool tileCooler = (TileEntitycool) world.getBlockTileEntity(x, y, z);
-		FMLLog.info("Cooler Activated");
-        if (tileCooler != null) {
+    @Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
 
+	    if (world.isRemote) {
+            TileEntitycool tileCool = (TileEntitycool) world.getBlockTileEntity(x, y, z);
+    
+            if (tileCool != null) {
                 player.openGui(SmeltCraft.instance, GuiIds.COOLER, world, x, y, z);
-        		FMLLog.info("Cooler GUI Call Started");
-        		
             }
-
+	    }
 
         return true;
-
+	    
     }
+
 
 	public static void updatecoolBlockState(boolean flag, World world, int i,
 			int j, int k) {
@@ -157,9 +160,9 @@ public class Blockcool extends BlockContainer{
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 		keepcoolInventory = true;
 		if (flag) {
-			world.setBlockWithNotify(i, j, k, SmeltCraft.coolBlockOn.blockID);
+			world.setBlockWithNotify(i, j, k, blocks.coolBlockOn.blockID);
 		} else {
-			world.setBlockWithNotify(i, j, k, SmeltCraft.coolBlock.blockID);
+			world.setBlockWithNotify(i, j, k, blocks.coolBlock.blockID);
 		}
 		keepcoolInventory = false;
 		world.setBlockMetadataWithNotify(i, j, k, l);

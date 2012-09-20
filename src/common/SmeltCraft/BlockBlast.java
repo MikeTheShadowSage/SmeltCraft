@@ -16,6 +16,8 @@ import net.minecraft.src.*;
 
 import java.util.Random;
 
+import SmeltCraft.Load.blocks;
+
 public class BlockBlast extends BlockContainer {
 
 	public BlockBlast(int i, boolean flag) {
@@ -26,7 +28,7 @@ public class BlockBlast extends BlockContainer {
 	}
 
 	public int idDropped(int i, Random random) {
-		return SmeltCraft.bfurBlock.blockID;
+		return blocks.bfurBlock.blockID;
 	}
 
 	public void onBlockAdded(World world, int i, int j, int k) {
@@ -124,9 +126,9 @@ public class BlockBlast extends BlockContainer {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 		keepblastInventory = true;
 		if (flag) {
-			world.setBlockWithNotify(i, j, k, SmeltCraft.bfurBlockOn.blockID);
+			world.setBlockWithNotify(i, j, k, blocks.bfurBlockOn.blockID);
 		} else {
-			world.setBlockWithNotify(i, j, k, SmeltCraft.bfurBlock.blockID);
+			world.setBlockWithNotify(i, j, k, blocks.bfurBlock.blockID);
 		}
 		keepblastInventory = false;
 		world.setBlockMetadataWithNotify(i, j, k, l);

@@ -4,6 +4,7 @@
 
 package SmeltCraft;
 
+import SmeltCraft.Load.items;
 import net.minecraft.src.*;
 
 // Referenced classes of package net.minecraft.src:
@@ -214,7 +215,7 @@ public class TileEntityBlast extends TileEntity implements IInventory {
 		}
 		int i = itemstack.getItem().shiftedIndex;
 
-		if (i == SmeltCraft.bCoal.shiftedIndex) {
+		if (i == items.bCoal.shiftedIndex) {
 			return 300;
 		} else {
 			return 0;
