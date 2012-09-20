@@ -138,9 +138,8 @@ public class Blockcool extends BlockContainer{
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
        
 		TileEntitycool tileCooler = (TileEntitycool) world.getBlockTileEntity(x, y, z);
+		FMLLog.info("Cooler Activated");
         if (tileCooler != null) {
-
-    		FMLLog.info("Cooler Activated");
 
                 player.openGui(SmeltCraft.instance, GuiIds.COOLER, world, x, y, z);
         		FMLLog.info("Cooler GUI Call Started");

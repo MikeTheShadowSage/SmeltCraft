@@ -24,6 +24,7 @@ public class CommonProxy implements IGuiHandler{
             return new ContainerPortableCrafting(player.inventory, world, x, y, z);
         }*//* else*/ 
     	if (ID == GuiIds.COOLER) {
+    		FMLLog.info("GUI Number" + GuiIds.COOLER + "Server Called");
             TileEntitycool cool = (TileEntitycool)world.getBlockTileEntity(x, y, z);
             return new Containercool(player.inventory, cool);
         }
@@ -39,7 +40,7 @@ public class CommonProxy implements IGuiHandler{
         } else */
     	
     	if (ID == GuiIds.COOLER) {
-    		FMLLog.info("GUI Number" + GuiIds.COOLER + " Called");
+    		FMLLog.info("GUI Number" + GuiIds.COOLER + "Client Called");
             TileEntitycool cool = (TileEntitycool)world.getBlockTileEntity(x, y, z);
             return new Guicool(player.inventory, cool);
         }
