@@ -18,9 +18,10 @@ import java.util.Random;
 
 import SmeltCraft.Library.GuiIds;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.IGuiHandler;
 
-public class Blockcool extends BlockContainer implements IGuiHandler {
+public class Blockcool extends BlockContainer{
 
 	public Blockcool(int i, boolean flag) {
 		super(i, Material.rock);
@@ -34,7 +35,7 @@ public class Blockcool extends BlockContainer implements IGuiHandler {
 	}
 
 	// returns an instance of the Container you made earlier
-	@Override
+	/*@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world,
 			int x, int y, int z) {
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
@@ -55,10 +56,11 @@ public class Blockcool extends BlockContainer implements IGuiHandler {
 		}
 		return null;
 	}
-
+*/
 	public void onBlockAdded(World world, int i, int j, int k) {
 		super.onBlockAdded(world, i, j, k);
 		setDefaultDirection(world, i, j, k);
+		FMLLog.info("Cooler added");
 	}
 
 	private void setDefaultDirection(World world, int i, int j, int k) {
@@ -134,14 +136,17 @@ public class Blockcool extends BlockContainer implements IGuiHandler {
 	}
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+       
+		TileEntitycool tileCooler = (TileEntitycool) world.getBlockTileEntity(x, y, z);
+        if (tileCooler != null) {
 
-	    if (world.isRemote) {
-            TileEntitycool tileCalcinator = (TileEntitycool) world.getBlockTileEntity(x, y, z);
-    
-            if (tileCalcinator != null) {
+    		FMLLog.info("Cooler Activated");
+
                 player.openGui(SmeltCraft.instance, GuiIds.COOLER, world, x, y, z);
+        		FMLLog.info("Cooler GUI Call Started");
+        		
             }
-	    }
+
 
         return true;
 

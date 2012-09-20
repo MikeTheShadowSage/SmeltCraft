@@ -1,5 +1,6 @@
 package SmeltCraft;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.TileEntity;
@@ -38,6 +39,7 @@ public class CommonProxy implements IGuiHandler{
         } else */
     	
     	if (ID == GuiIds.COOLER) {
+    		FMLLog.info("GUI Number" + GuiIds.COOLER + " Called");
             TileEntitycool cool = (TileEntitycool)world.getBlockTileEntity(x, y, z);
             return new Guicool(player.inventory, cool);
         }

@@ -19,6 +19,7 @@ public class Guicool extends GuiContainer {
     
     public Guicool(InventoryPlayer player, TileEntitycool cool) {
         super(new Containercool(player, cool));
+    	System.out.println("Called GUI COOL");
         this.cool = cool;
     }
     

@@ -306,7 +306,7 @@ public class SmeltCraft {
 		// Other (Such as TileEntity's!)
 
 		ModLoader.registerTileEntity(TileEntityBlast.class, "Blast");
-		ModLoader.registerTileEntity(TileEntitycool.class, "Cool");
+		ModLoader.registerTileEntity(TileEntitycool.class, "tileCool");
 		ModLoader.registerTileEntity(TileEntitymix.class, "Mix");
 		// ModLoader.RegisterTileEntity(net.minecraft.SmeltCraft.Machines.TileEntityessence.class,
 		// "Essence");
