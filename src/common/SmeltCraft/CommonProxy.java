@@ -16,13 +16,13 @@ public class CommonProxy implements IGuiHandler{
 		// Nothing here as this is the server side proxy
 	}
 
-	
+
 	
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-      /*  if (ID == GuiIds.PORTABLE_CRAFTING) {
-            return new ContainerPortableCrafting(player.inventory, world, x, y, z);
-        }*//* else*/ 
+    //   //if (ID == GuiIds.PORTABLE_CRAFTING) {
+     //       return new ContainerPortableCrafting(player.inventory, world, x, y, z);
+     //   } //else 
     	if (ID == GuiIds.COOLER) {
     		FMLLog.info("GUI Number" + ID + "Server Called");
             TileEntitycool cool = (TileEntitycool)world.getBlockTileEntity(x, y, z);
@@ -35,9 +35,9 @@ public class CommonProxy implements IGuiHandler{
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
     	
-        /*if (ID == GuiIds.PORTABLE_CRAFTING) {
-            return new GuiPortableCrafting(player, world, x, y, z);
-        } else */
+    //    if (ID == GuiIds.PORTABLE_CRAFTING) {
+    //        return new GuiPortableCrafting(player, world, x, y, z);
+    //    } else 
     	
     	if (ID == GuiIds.COOLER) {
     		FMLLog.info("GUI Number" + GuiIds.COOLER + "Client Called");
@@ -46,5 +46,5 @@ public class CommonProxy implements IGuiHandler{
         }
         
         return null;
-    }
+    } 
 }

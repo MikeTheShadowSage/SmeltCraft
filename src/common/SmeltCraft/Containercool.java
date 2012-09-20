@@ -1,116 +1,182 @@
 package SmeltCraft;
 
-import net.minecraft.src.*;
+import cpw.mods.fml.common.Side;
+import cpw.mods.fml.common.asm.SideOnly;
+import java.util.Iterator;
 
-import java.util.List;
+import net.minecraft.src.Container;
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ICrafting;
+import net.minecraft.src.InventoryPlayer;
+import net.minecraft.src.ItemStack;
+import net.minecraft.src.Slot;
 
-// Referenced classes of package net.minecraft.src:
-//            Container, Slot, SlotFurnace, InventoryPlayer, 
-//            ICrafting, TileEntityFurnace, ItemStack, EntityPlayer
+public class Containercool extends Container
+{
+    private TileEntitycool cool;
+    private int lastCookTime = 0;
+    private int lastBurnTime = 0;
+    private int lastItemBurnTime = 0;
 
-public class Containercool extends ContainerSmelt {
+    public Containercool(InventoryPlayer par1InventoryPlayer, TileEntitycool par2TileEntitycool)
+    {
+        this.cool = par2TileEntitycool;
+        this.addSlotToContainer(new Slot(par2TileEntitycool, 0, 56, 17));
+        this.addSlotToContainer(new Slot(par2TileEntitycool, 1, 56, 53));
+        this.addSlotToContainer(new Slotcool(par1InventoryPlayer.player, par2TileEntitycool, 2, 116, 35));
+        int var3;
 
-	public Containercool(InventoryPlayer inventoryplayer,
-			TileEntitycool tileentitycool) {
-		super(tileentitycool.getSizeInventory());
-		CookTime = 0;
-		BurnTime = 0;
-		ItemBurnTime = 0;
-		cool = tileentitycool;
-		addSlotToContainer(new Slot(tileentitycool, 0, 56, 17));
-		addSlotToContainer(new Slot(tileentitycool, 1, 56, 53));
-		addSlotToContainer(new Slotcool(inventoryplayer.player, tileentitycool,
-				2, 116, 35));
-		for (int i = 0; i < 3; i++) {
-			for (int k = 0; k < 9; k++) {
-				addSlotToContainer(new Slot(inventoryplayer, k + i * 9 + 9,
-						8 + k * 18, 84 + i * 18));
-			}
+        for (var3 = 0; var3 < 3; ++var3)
+        {
+            for (int var4 = 0; var4 < 9; ++var4)
+            {
+                this.addSlotToContainer(new Slot(par1InventoryPlayer, var4 + var3 * 9 + 9, 8 + var4 * 18, 84 + var3 * 18));
+            }
+        }
 
-		}
+        for (var3 = 0; var3 < 9; ++var3)
+        {
+            this.addSlotToContainer(new Slot(par1InventoryPlayer, var3, 8 + var3 * 18, 142));
+        }
+    }
 
-		for (int j = 0; j < 9; j++) {
-			addSlotToContainer(new Slot(inventoryplayer, j, 8 + j * 18, 142));
-		}
+    public void addCraftingToCrafters(ICrafting par1ICrafting)
+    {
+        super.addCraftingToCrafters(par1ICrafting);
+        par1ICrafting.updateCraftingInventoryInfo(this, 0, this.cool.coolCookTime);
+        par1ICrafting.updateCraftingInventoryInfo(this, 1, this.cool.coolBurnTime);
+        par1ICrafting.updateCraftingInventoryInfo(this, 2, this.cool.currentItemBurnTime);
+    }
 
-	}
+    /**
+     * Updates crafting matrix; called from onCraftMatrixChanged. Args: none
+     */
+    public void updateCraftingResults()
+    {
+        super.updateCraftingResults();
+        Iterator var1 = this.crafters.iterator();
 
-	public void updateCraftingResults() {
-		super.updateCraftingResults();
-		for (int i = 0; i < crafters.size(); i++) {
-			ICrafting icrafting = (ICrafting) crafters.get(i);
-			if (CookTime != cool.coolCookTime) {
-				icrafting.updateCraftingInventoryInfo(this, 0,
-						cool.coolCookTime);
-			}
-			if (BurnTime != cool.coolBurnTime) {
-				icrafting.updateCraftingInventoryInfo(this, 1,
-						cool.coolBurnTime);
-			}
-			if (ItemBurnTime != cool.currentItemBurnTime) {
-				icrafting.updateCraftingInventoryInfo(this, 2,
-						cool.currentItemBurnTime);
-			}
-		}
+        while (var1.hasNext())
+        {
+            ICrafting var2 = (ICrafting)var1.next();
 
-		CookTime = cool.coolCookTime;
-		BurnTime = cool.coolBurnTime;
-		ItemBurnTime = cool.currentItemBurnTime;
-	}
+            if (this.lastCookTime != this.cool.coolCookTime)
+            {
+                var2.updateCraftingInventoryInfo(this, 0, this.cool.coolCookTime);
+            }
 
-	public void func_20112_a(int i, int j) {
-		if (i == 0) {
-			cool.coolCookTime = j;
-		}
-		if (i == 1) {
-			cool.coolBurnTime = j;
-		}
-		if (i == 2) {
-			cool.currentItemBurnTime = j;
-		}
-	}
+            if (this.lastBurnTime != this.cool.coolBurnTime)
+            {
+                var2.updateCraftingInventoryInfo(this, 1, this.cool.coolBurnTime);
+            }
 
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return cool.isUseableByPlayer(entityplayer);
-	}
+            if (this.lastItemBurnTime != this.cool.currentItemBurnTime)
+            {
+                var2.updateCraftingInventoryInfo(this, 2, this.cool.currentItemBurnTime);
+            }
+        }
 
-	public ItemStack getStackInSlot(int i) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) inventorySlots.get(i);
-		if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-			if (i == 2) {
-				if (!mergeItemStack(itemstack1, 3, 39, true)) {
-					return null;
-				}
-			} else if (i >= 3 && i < 30) {
-				if (!mergeItemStack(itemstack1, 30, 39, false)) {
-					return null;
-				}
-			} else if (i >= 30 && i < 39) {
-				if (!mergeItemStack(itemstack1, 3, 30, false)) {
-					return null;
-				}
-			} else if (!mergeItemStack(itemstack1, 3, 39, false)) {
-				return null;
-			}
-			if (itemstack1.stackSize == 0) {
-				slot.putStack(null);
-			} else {
-				slot.onSlotChanged();
-			}
-			if (itemstack1.stackSize != itemstack.stackSize) {
-				slot.onPickupFromSlot(itemstack1);
-			} else {
-				return null;
-			}
-		}
-		return itemstack;
-	}
+        this.lastCookTime = this.cool.coolCookTime;
+        this.lastBurnTime = this.cool.coolBurnTime;
+        this.lastItemBurnTime = this.cool.currentItemBurnTime;
+    }
 
-	private TileEntitycool cool;
-	private int CookTime;
-	private int BurnTime;
-	private int ItemBurnTime;
+    @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int par1, int par2)
+    {
+        if (par1 == 0)
+        {
+            this.cool.coolCookTime = par2;
+        }
+
+        if (par1 == 1)
+        {
+            this.cool.coolBurnTime = par2;
+        }
+
+        if (par1 == 2)
+        {
+            this.cool.currentItemBurnTime = par2;
+        }
+    }
+
+    public boolean canInteractWith(EntityPlayer par1EntityPlayer)
+    {
+        return this.cool.isUseableByPlayer(par1EntityPlayer);
+    }
+
+    /**
+     * Called to transfer a stack from one inventory to the other eg. when shift clicking.
+     */
+    public ItemStack transferStackInSlot(int par1)
+    {
+        ItemStack var2 = null;
+        Slot var3 = (Slot)this.inventorySlots.get(par1);
+
+        if (var3 != null && var3.getHasStack())
+        {
+            ItemStack var4 = var3.getStack();
+            var2 = var4.copy();
+
+            if (par1 == 2)
+            {
+                if (!this.mergeItemStack(var4, 3, 39, true))
+                {
+                    return null;
+                }
+
+                var3.onSlotChange(var4, var2);
+            }
+            else if (par1 != 1 && par1 != 0)
+            {
+                if (coolRecipes.smelting().getSmeltingResult(var4) != null)
+                {
+                    if (!this.mergeItemStack(var4, 0, 1, false))
+                    {
+                        return null;
+                    }
+                }
+                else if (TileEntitycool.isItemFuel(var4))
+                {
+                    if (!this.mergeItemStack(var4, 1, 2, false))
+                    {
+                        return null;
+                    }
+                }
+                else if (par1 >= 3 && par1 < 30)
+                {
+                    if (!this.mergeItemStack(var4, 30, 39, false))
+                    {
+                        return null;
+                    }
+                }
+                else if (par1 >= 30 && par1 < 39 && !this.mergeItemStack(var4, 3, 30, false))
+                {
+                    return null;
+                }
+            }
+            else if (!this.mergeItemStack(var4, 3, 39, false))
+            {
+                return null;
+            }
+
+            if (var4.stackSize == 0)
+            {
+                var3.putStack((ItemStack)null);
+            }
+            else
+            {
+                var3.onSlotChanged();
+            }
+
+            if (var4.stackSize == var2.stackSize)
+            {
+                return null;
+            }
+
+            var3.onPickupFromSlot(var4);
+        }
+
+        return var2;
+    }
 }

@@ -19,6 +19,7 @@ import java.util.Random;
 import SmeltCraft.Library.GuiIds;
 import SmeltCraft.Load.blocks;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -141,11 +142,15 @@ public class Blockcool extends BlockContainer{
     @Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
 
-	    if (world.isRemote) {
+	   // if (world.isRemote) 
+	    {
             TileEntitycool tileCool = (TileEntitycool) world.getBlockTileEntity(x, y, z);
-    
-            if (tileCool != null) {
-                player.openGui(SmeltCraft.instance, GuiIds.COOLER, world, x, y, z);
+    		FMLLog.info("Cooler GUI On");
+           // if (tileCool != null) 
+            {
+        		FMLLog.info("Cooler GUI 1");
+            	FMLCommonHandler.instance().showGuiScreen(new Guicool(player.inventory, tileCool));
+        		FMLLog.info("Cooler GUI 2");
             }
 	    }
 

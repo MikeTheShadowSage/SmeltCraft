@@ -1,37 +1,39 @@
 package SmeltCraft;
 
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
-import SmeltCraft.Library.Reference;
-import net.minecraft.src.Container;
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.InventoryPlayer;
 import net.minecraft.src.StatCollector;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.TileEntityFurnace;
+
+import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class Guicool extends GuiContainer {
+public class Guicool extends GuiContainer
+{
+    private TileEntitycool coolInventory;
 
-    private TileEntitycool cool;
-    
-    public Guicool(InventoryPlayer player, TileEntitycool cool) {
-        super(new Containercool(player, cool));
-    	System.out.println("Called GUI COOL");
-        this.cool = cool;
+    public Guicool(InventoryPlayer par1InventoryPlayer, TileEntitycool par2TileEntitycool)
+    {
+        super(new Containercool(par1InventoryPlayer, par2TileEntitycool));
+        this.coolInventory = par2TileEntitycool;
     }
-    
+
+    /**
+     * Draw the foreground layer for the GuiContainer (everything in front of the items)
+     */
     protected void drawGuiContainerForegroundLayer()
     {
-        this.fontRenderer.drawString("cool", 60, 6, 4210752);
+        this.fontRenderer.drawString(StatCollector.translateToLocal("container.furnace"), 60, 6, 4210752);
         this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
+    /**
+     * Draw the background layer for the GuiContainer (everything behind the items)
+     */
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
-        int var4 = this.mc.renderEngine.getTexture(Reference.GUI_SHEET_LOCATION + "Cooler.png");
+        int var4 = this.mc.renderEngine.getTexture("/SmeltCraft/MTSS/gui/Cooler.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(var4);
         int var5 = (this.width - this.xSize) / 2;
@@ -39,18 +41,13 @@ public class Guicool extends GuiContainer {
         this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);
         int var7;
 
-        /*
-         * This bit shows the "fire" effect in the GUI
-        if (this.furnaceInventory.isBurning())
+        if (this.coolInventory.isBurning())
         {
-            var7 = this.furnaceInventory.getBurnTimeRemainingScaled(12);
+            var7 = this.coolInventory.getBurnTimeRemainingScaled(12);
             this.drawTexturedModalRect(var5 + 56, var6 + 36 + 12 - var7, 176, 12 - var7, 14, var7 + 2);
         }
 
-         * This bit shows the progress bar in the GUI
-        var7 = this.furnaceInventory.getCookProgressScaled(24);
+        var7 = this.coolInventory.getCookProgressScaled(24);
         this.drawTexturedModalRect(var5 + 79, var6 + 34, 176, 14, var7 + 1, 16);
-        */
     }
-    
 }
